@@ -69,7 +69,6 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    value.length = value.length - 1;
     let arr = value.split(' ');
     return `${arr[1]} ${arr[2].split('!').join('')}`;
 }
@@ -101,8 +100,7 @@ function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-    value[0] = ''
-    return value;
+    return value.replace(/(\\n)|(\\t)|(^ | $)/ig, '');
 }
 
 /**
@@ -205,7 +203,7 @@ function extractEmails(str) {
  */
 function getRectangleString(width, height) {
     let strW = '┌' + '─'.repeat(width - 2) + '┐'+'\n';
-    let strW2 = '|' + ' '.repeat(width - 2) + '|' + '\n';
+    let strW2 = '│' + ' '.repeat(width - 2) + '│' + '\n';
     let strWend = '└'+ '─'.repeat(width - 2) + '┘'+'\n';
     return strW + strW2.repeat(height - 2) + strWend;
 }
@@ -255,7 +253,8 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    return typeof value === 'string'
+   let val = value;
+    return (typeof value === 'string' && value)
 }
 
 
