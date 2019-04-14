@@ -17,8 +17,8 @@
  *  ]
  */
 function createCompassPoints() {
-    throw new Error('Not implemented');
-    var sides = ['N','E','S','W'];  // use array of cardinal directions only!
+    var sides = ['N', 'NbE', 'NNE', 'NEbN', 'NE','NEbE' ,'ENE','EbN' ,'E','EbS' ,'ESE','SEbE' ,'SE','SEbS' ,'SSE','SbE' ,'S','SbW' ,'SSW','SWbS' ,'SW','SWbW' ,'WSW','WbS' ,'W','WbN' ,'WNW','NWbW' ,'NW','NWbN' ,'NNW','NbW'];
+    return sides.map((el, i) =>{ return {abbreviation: el, azimuth: (i*11.25).toFixed(2)}});
 }
 
 
@@ -88,9 +88,27 @@ function* expandBraces(str) {
  *
  */
 function getZigZagMatrix(n) {
-    throw new Error('Not implemented');
+    this.height = n;
+    this.width = n;
+ 
+    this.mtx = [];
+    for (var i = 0; i < n; i++) 
+        this.mtx[i] = [];
+ 
+    var i=1, j=1;
+    for (var e = 0; e < n*n; e++) {
+        this.mtx[i-1][j-1] = e;
+        if ((i + j) % 2 == 0) {
+            if (j < n) j ++;
+            else       i += 2;
+            if (i > 1) i --;
+        } else {
+            if (i < n) i ++;
+            else       j += 2;
+            if (j > 1) j --;
+        }
+    }
 }
-
 
 /**
  * Returns true if specified subset of dominoes can be placed in a row accroding to the game rules.
@@ -113,7 +131,10 @@ function getZigZagMatrix(n) {
  *
  */
 function canDominoesMakeRow(dominoes) {
-    throw new Error('Not implemented');
+    for(let i = 0; i < dominoes.length - 1; i++){
+        if(!(dominoes[i][1] <= dominoes[i + 1][0])) return false;
+    }
+    return true;
 }
 
 
@@ -137,7 +158,30 @@ function canDominoesMakeRow(dominoes) {
  * [ 1, 2, 4, 5]          => '1,2,4,5'
  */
 function extractRanges(nums) {
-    throw new Error('Not implemented');
+    var len = n.length;
+    var out = [];
+    var i, j;
+    for (i = 0; i < len; i = j + 1) {
+        // beginning of range or single
+        out.push(n[i]);
+    
+        // find end of range
+        for (var j = i + 1; j < len && n[j] == n[j-1] + 1; j++);
+        j--;
+    
+        if (i == j) {
+        // single number
+        out.push(",");
+        } else if (i + 1 == j) {
+        // two numbers
+        out.push(",", n[j], ",");
+        } else { 
+        // range
+        out.push("-", n[j], ",");
+        }
+    }
+    out.pop(); // remove trailing comma
+    return out.join("");
 }
 
 module.exports = {

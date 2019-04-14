@@ -127,7 +127,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-    throw new Error('Not implemented');
+    
 }
 
 
@@ -202,7 +202,19 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-    throw new Error('Not implemented');
+  if (n < 2 || n % 2 === 0 && n !== 2) {
+    return false;
+  }
+
+  max = Math.round(Math.sqrt(n)) + 1;
+
+  for (i = 3; i < max; i += 2) {
+    if (n % i === 0) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 /**
