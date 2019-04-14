@@ -69,8 +69,9 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
+    value.length = value.length - 1;
     let arr = value.split(' ');
-    return `${arr[1]} ${arr[2].replace(arr[2].length, '')}`;
+    return `${arr[1]} ${arr[2].split('!').join('')}`;
 }
 
 
@@ -100,7 +101,8 @@ function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-    return value[0] = '';
+    value[0] = ''
+    return value;
 }
 
 /**
@@ -202,9 +204,10 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    let strW = '_'.repeat(width) + '\n';
+    let strW = '┌' + '─'.repeat(width - 2) + '┐'+'\n';
     let strW2 = '|' + ' '.repeat(width - 2) + '|' + '\n';
-    return strW + strW2.repeat(height - 2) + strW;
+    let strWend = '└'+ '─'.repeat(width - 2) + '┘'+'\n';
+    return strW + strW2.repeat(height - 2) + strWend;
 }
 
 
@@ -225,13 +228,13 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-  var string = "";
-  for (var i = 0; i < str.length; i++) {
-    var temp = str.charAt(i);
-    if (temp !== " " || temp !== "!" || temp !== "?") {
-      string += String.fromCharCode(13 + String.prototype.charCodeAt(temp));
+  let string = "";
+
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] !== " " || str[i] !== "!" || str[i] !== "?") {
+      string += String.fromCharCode(13 + str.charCodeAt(i));
     } else {
-      string += temp;
+      string += str[i];
     }
   }
 
@@ -252,7 +255,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    throw new Error('Not implemented');
+    return typeof value === 'string'
 }
 
 

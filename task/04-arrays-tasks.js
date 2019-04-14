@@ -234,7 +234,7 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-   return arr.reduce((acc, el, i) => el + acc[i - 1] || el, []);
+   return arr.forEach((el, i, arr) =>el + arr[i - 1] || el);
 }
 
 /**
@@ -249,7 +249,7 @@ function getMovingSum(arr) {
  * [ "a" ] => []
  */
 function getSecondItems(arr) {
-   throw arr.filter((el, i) => (i+1 % 2) === 0)
+   return arr.filter((el, i) => {(i+1 % 2) === 0})
 }
 
 
